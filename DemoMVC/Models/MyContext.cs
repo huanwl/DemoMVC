@@ -7,9 +7,9 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace DemoMVC.Models
 {
-    public class AppContext : DbContext
+    public class MyContext : DbContext
     {
-        public AppContext() : base("AppContext")
+        public MyContext() : base("MyContext")
         {
         }
 

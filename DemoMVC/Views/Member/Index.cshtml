@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DemoMVC.Models.Member>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            帳號
+        </th>
+        <th>
+            密碼
+        </th>
+        <th>
+            暱稱
+        </th>
+        <th>
+            電話
+        </th>
+        <th>
+            信箱
+        </th>
+        <th></th>
+    </tr>
+
+@{
+    var number = 1;
+    foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @number
+        </td>
+        <td>
+            @item.UserName
+        </td>
+        <td>
+            @item.Password
+        </td>
+        <td>
+            @item.NickName
+        </td>
+        <td>
+            @item.Phone
+        </td>
+        <td>
+            @item.Email
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserName }) |
+            @Html.ActionLink("Details", "Details", new { id = item.UserName }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserName })
+        </td>
+    </tr>
+        number++;
+    }
+ }
+
+</table>
