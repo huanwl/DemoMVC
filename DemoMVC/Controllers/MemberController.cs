@@ -9,19 +9,14 @@ namespace DemoMVC.Controllers
 {
     public class MemberController : Controller
     {
+        readonly MyContext db = new MyContext();
+
         // GET: Member
         public ActionResult Index()
-        {
-            MyContext db = new MyContext();
+        {   
             var models = db.Members.ToList();
 
             return View(models);
-        }
-
-        // GET: Member/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: Member/Create
@@ -32,62 +27,40 @@ namespace DemoMVC.Controllers
 
         // POST: Member/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Member model)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            db.Members.Add(model);
+            db.SaveChanges();
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: Member/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var model = db.Members.Find(id);
+
+            return View(model);
         }
 
         // POST: Member/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Member model)
         {
-            try
-            {
-                // TODO: Add update logic here
+            db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: Member/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
-        }
+            var model = db.Members.Find(id);
+            db.Members.Remove(model);
+            db.SaveChanges();
 
-        // POST: Member/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }
