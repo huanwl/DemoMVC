@@ -1,5 +1,6 @@
 using DemoMVC.Models;
 using DemoMVC.Repository;
+using DemoMVC.Service;
 using System;
 
 using Unity;
@@ -46,6 +47,7 @@ namespace DemoMVC
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<MyContext, MyContext>();
             container.RegisterType<IRepository<Member>, Repository<Member>>();
+            container.RegisterType<IMemberService, MemberService>();
         }
     }
 }

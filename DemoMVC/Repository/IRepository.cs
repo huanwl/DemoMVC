@@ -4,15 +4,15 @@ namespace DemoMVC.Repository
 {
     public interface IRepository<T>
     {
-        string Create(T entity);
-
-        string Delete(T entity);
-
         IQueryable<T> GetAll();
 
         T GetById(string id);
 
+        void Create(T entity);
+
         void Update(T entity);
+
+        void Delete(T entity);
 
         void SaveChange();
     }

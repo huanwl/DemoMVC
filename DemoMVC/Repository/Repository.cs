@@ -19,22 +19,6 @@ namespace DemoMVC.Repository
             this.DbSet = this.DbContext.Set<T>();
         }
 
-        public virtual string Create(T entity)
-        {
-            dynamic obj = this.DbSet.Add(entity);
-            return obj.Id;
-        }
-
-        public virtual string Delete(T entity)
-        {
-            if (this.DbContext.Entry(entity).State == EntityState.Detached)
-            {
-                this.DbSet.Attach(entity);
-            }
-            dynamic obj = DbSet.Remove(entity);
-            return obj.Id;
-        }
-
         public virtual IQueryable<T> GetAll()
         {
             return this.DbSet;
@@ -45,10 +29,20 @@ namespace DemoMVC.Repository
             return this.DbSet.Find(id);
         }
 
+        public virtual void Create(T entity)
+        {
+            dynamic obj = this.DbSet.Add(entity);
+        }
+
         public virtual void Update(T entity)
         {
             this.DbSet.Attach(entity);
             this.DbContext.Entry(entity).State = EntityState.Modified;
+        }
+
+        public virtual void Delete(T entity)
+        {
+            dynamic obj = DbSet.Remove(entity);
         }
 
         public void SaveChange()
