@@ -1,5 +1,6 @@
 ﻿using DemoMVC.Models;
 using DemoMVC.Repository;
+using DemoMVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,13 @@ namespace DemoMVC.Service
 {
     public interface IMemberService
     {
-        IEnumerable<Member> GetAll();
+        IEnumerable<MemberVM> GetAll();
 
-        Member GetById(string id);
+        MemberVM GetById(string id);
 
-        bool Create(Member model);
+        bool Create(MemberVM vm);
 
-        bool Update(Member model);
+        bool Update(MemberVM vm);
 
         bool Delete(string id);
     }
