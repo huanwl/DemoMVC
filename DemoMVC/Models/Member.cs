@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DemoMVC.Models
 {
-    public class Member
+    public class Member : BaseModel
     {  
         [Key]
         public string UserName { get; set; }
