@@ -1,6 +1,7 @@
 ﻿using DemoMVC.Models;
 using DemoMVC.Repository;
 using DemoMVC.Service;
+using DemoMVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,14 @@ namespace DemoMVC.Controllers
 
         // POST: Member/Create
         [HttpPost]
-        public ActionResult Create(Member model)
+        public ActionResult Create(MemberVM vm)
         {
-            _memberService.Create(model);
+            if (false == ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            _memberService.Create(vm);
 
             return RedirectToAction("Index");
         }
@@ -44,16 +50,21 @@ namespace DemoMVC.Controllers
         // GET: Member/Edit/5
         public ActionResult Edit(string id)
         {
-            var model = _memberService.GetById(id);
+            var vm = _memberService.GetById(id);
 
-            return View(model);
+            return View(vm);
         }
 
         // POST: Member/Edit/5
         [HttpPost]
-        public ActionResult Edit(Member model)
+        public ActionResult Edit(MemberVM vm)
         {
-            _memberService.Update(model);
+            if (false == ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            _memberService.Update(vm);
 
             return RedirectToAction("Index");
         }
