@@ -1,3 +1,5 @@
+using DemoMVC.Models;
+using DemoMVC.Repository;
 using System;
 
 using Unity;
@@ -42,6 +44,8 @@ namespace DemoMVC
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<MyContext, MyContext>();
+            container.RegisterType<IRepository<Member>, Repository<Member>>();
         }
     }
 }
