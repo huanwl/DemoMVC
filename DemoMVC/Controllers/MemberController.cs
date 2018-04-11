@@ -1,4 +1,6 @@
 ﻿using DemoMVC.Models;
+using DemoMVC.Repository;
+using DemoMVC.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +11,17 @@ namespace DemoMVC.Controllers
 {
     public class MemberController : Controller
     {
-        readonly MyContext db = new MyContext();
+        IMemberService _memberService;
+
+        public MemberController(IMemberService memberService)
+        {
+            _memberService = memberService;
+        }
 
         // GET: Member
         public ActionResult Index()
-        {   
-            var models = db.Members.ToList();
+        {
+            var models = _memberService.GetAll();
 
             return View(models);
         }
@@ -29,8 +36,7 @@ namespace DemoMVC.Controllers
         [HttpPost]
         public ActionResult Create(Member model)
         {
-            db.Members.Add(model);
-            db.SaveChanges();
+            _memberService.Create(model);
 
             return RedirectToAction("Index");
         }
@@ -38,7 +44,7 @@ namespace DemoMVC.Controllers
         // GET: Member/Edit/5
         public ActionResult Edit(string id)
         {
-            var model = db.Members.Find(id);
+            var model = _memberService.GetById(id);
 
             return View(model);
         }
@@ -47,8 +53,7 @@ namespace DemoMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Member model)
         {
-            db.Entry(model).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+            _memberService.Update(model);
 
             return RedirectToAction("Index");
         }
@@ -56,9 +61,7 @@ namespace DemoMVC.Controllers
         // GET: Member/Delete/5
         public ActionResult Delete(string id)
         {
-            var model = db.Members.Find(id);
-            db.Members.Remove(model);
-            db.SaveChanges();
+            _memberService.Delete(id);
 
             return RedirectToAction("Index");
         }
