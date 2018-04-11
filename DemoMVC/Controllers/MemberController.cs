@@ -37,6 +37,11 @@ namespace DemoMVC.Controllers
         [HttpPost]
         public ActionResult Create(MemberVM vm)
         {
+            if (false == ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
             _memberService.Create(vm);
 
             return RedirectToAction("Index");
@@ -54,6 +59,11 @@ namespace DemoMVC.Controllers
         [HttpPost]
         public ActionResult Edit(MemberVM vm)
         {
+            if (false == ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
             _memberService.Update(vm);
 
             return RedirectToAction("Index");
